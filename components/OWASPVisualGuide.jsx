@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Shield, Lock, Database, Code, AlertTriangle, Package, Key, RefreshCw, LineChart, Globe } from 'lucide-react';
 
@@ -256,30 +257,40 @@ const OWASPVisualGuide = () => {
   ];
 
   return (
-    <Card className="w-full max-w-4xl">
+    <Card className="w-full max-w-4xl my-8">
       <CardHeader>
-        <CardTitle>OWASP Top 10 Visual Guide</CardTitle>
+        {/* Added image above the title */}
+        <div className="flex justify-center mb-4">
+          <Image 
+            src="https://outamation.com/wp-content/uploads/2022/01/hori-logo-1-e1657530120873-2048x522.png"
+            alt="OWASP Visual Guide Banner" 
+            width={800} 
+            height={200} 
+            className="object-cover rounded"
+          />
+        </div>
+        <CardTitle><center>OWASP Top 10 Vulnerabilities Guide</center></CardTitle>
       </CardHeader>
       <CardContent>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {vulnerabilities.map((vuln) => (
             <div
               key={vuln.id}
-              className="bg-white p-4 rounded-lg border hover:border-blue-500 cursor-pointer transition-colors"
+              className="bg-white dark:bg-gray-800 p-4 rounded-lg border hover:border-blue-500 cursor-pointer transition-colors"
               onClick={() => setActiveVulnerability(activeVulnerability === vuln.id ? null : vuln.id)}
             >
               <div className="flex items-center space-x-4 mb-4">
                 {vuln.icon}
                 <div>
                   <div className="font-medium">{vuln.title}</div>
-                  <div className="text-sm text-gray-600">#{vuln.id}</div>
+                  <div className="text-sm text-gray-600 dark:text-gray-400">#{vuln.id}</div>
                 </div>
               </div>
               
               {activeVulnerability === vuln.id && (
                 <div className="space-y-4">
                   {vuln.visual}
-                  <p className="text-sm text-gray-600 mt-2">{vuln.description}</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-300 mt-2">{vuln.description}</p>
                 </div>
               )}
             </div>
@@ -290,4 +301,11 @@ const OWASPVisualGuide = () => {
   );
 };
 
-export default OWASPVisualGuide;
+
+export default function OWASPVisualGuideWithTheme() {
+  return (
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
+      <OWASPVisualGuide />
+    </div>
+  );
+}
