@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Shield, Lock, Database, Code, AlertTriangle, Package, Key, RefreshCw, LineChart, Globe } from 'lucide-react';
